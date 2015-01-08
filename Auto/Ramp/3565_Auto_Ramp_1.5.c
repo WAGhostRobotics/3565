@@ -29,7 +29,8 @@ Alex McKinley
 1.01 11-7-14: Add waitforstart menu and start fixing turns / Brandon Wang
 1.10 11-13-14: Fix turns / Lilia Heinold,
 1.2 11-14-14: Start dialing auto with new robot Akash, Will, Brandon
-1.3 11-25-14: Code cleanup day: commenting, and refactoring - All Programmers
+1.3 11-25-14: Code cleanup day: commenting, and refactoring - All Programmers\
+2.1 12-18-14: Make it work with new base
 */
 #include "Standard_Drive.c";
 #include "JoystickDriver.c";
@@ -125,7 +126,7 @@ Drive forward to right in front of the first 60 cm tube
 void moveToFirstTube()
 {
 	//drive to tube
-	driveInches(60,33,27);
+	driveInches(60,33,33);
 	wait1Msec(100);
 	driveInches(24,50,50);
 	wait10Msec(100);
@@ -198,14 +199,16 @@ void postParkGoal()
 
 task main()
 {
-	stopMotors();
-	return;
 	preMovement();
 	moveToFirstTube();
+
+	return;
+
 	attachAndDump();
 	moveToParkingZone();
 	parkGoal();
 	postParkGoal();
+	bSystemLeaveServosEnabledOnProgramStop = true;
 }
 
 bool inputWaitForStart() {
